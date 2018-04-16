@@ -1,7 +1,7 @@
 #!/bin/ksh
-wrkdir=/home/spos2
+wrkdir=/tmp/Hardening
 hname=`hostname`
-outfil=/home/spos2/$hname.iso_chk_linux.txt
+outfil=/tmp/Hardening/$hname.iso_chk_linux.txt
 echo "############################"  > $outfil
 echo "# LINUX系統強化檢核表附件  #" >> $outfil
 echo "#        第一次強化        #" >> $outfil
@@ -111,8 +111,8 @@ echo "  " >> $outfil
 
 echo "2-6 確認強迫使用者未任何動作超過一定時間時，予以強迫登出？" >> $outfil
 echo "==================================" >> $outfil
-echo "cat /etc/login.defs |grep LOGIN_TIMEOUT"  >> $outfil
-cat /etc/login.defs |grep LOGIN_TIMEOUT >> $outfil
+echo "cat /etc/profile.local"  >> $outfil
+cat /etc/profile.local >> $outfil
 echo "----------------------------------" >> $outfil
 echo "  " >> $outfil
 echo "  " >> $outfil
@@ -234,14 +234,14 @@ echo "  " >> $outfil
 
 echo "4-1 確認系統之稽核功能是否已經啟動？ "  >> $outfil
 echo "==================================" >> $outfil
-echo "4-1-1 ps -ef|grep audit |grep -v grep "  >> $outfil
-ps -ef|grep audit |grep -v grep   >> $outfil
+echo "service auditd status"  >> $outfil
+service auditd status    >> $outfil
 echo "----------------------------------" >> $outfil
 echo "  " >> $outfil
 echo "  " >> $outfil
-echo "4-1-2 cat auditd.conf |grep -v \"#\" "  >> $outfil
+echo "4-1-2 檢視稽核規則 auditctl -l "  >> $outfil
 echo "==================================" >> $outfil
-cat /etc/audit/auditd.conf |grep -v "^#"  >> $outfil
+auditctl -l  >> $outfil
 echo "----------------------------------" >> $outfil
 echo "  " >> $outfil
 echo "  " >> $outfil
@@ -249,8 +249,8 @@ echo "  " >> $outfil
 
 echo "4-2 確認log file僅有root具有寫入權限。"  >> $outfil
 echo "==================================" >> $outfil
-echo "ls -l /var/log/audit/audit.log "  >> $outfil
-ls -l /var/log/audit/audit.log  >> $outfil
+echo "ls -l /aulog/audit.log "  >> $outfil
+ls -l /aulog/audit.log  >> $outfil
 
 echo "----------------------------------" >> $outfil
 echo "  " >> $outfil
@@ -300,6 +300,7 @@ for service in ${check_services[@]}; do
 done
     echo "  " >> $outfil
 
+
 echo "6-2 確認只開啟必要之通訊埠及TCP/IP服務"  >> $outfil
 echo "==================================" >> $outfil
 echo "檢查 /etc/xinetd.conf" >> $outfil
@@ -317,6 +318,7 @@ echo "----------------------------------" >> $outfil
 echo "  " >> $outfil
 echo "  " >> $outfil
 
+
 echo "7-1 確認目前是否已更新至修補程式之最適版本。 " >> $outfil
 echo "==================================" >> $outfil
 echo "維持半年前之最適版本"   >> $outfil
@@ -324,6 +326,7 @@ cat /etc/SuSE-release  >> $outfil
 echo "----------------------------------" >> $outfil
 echo "  " >> $outfil
 echo "  " >> $outfil
+
 
 echo "8-1 確認是否執行系統弱點掃描。 "  >> $outfil
 echo "==================================" >> $outfil
