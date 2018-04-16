@@ -56,7 +56,7 @@ pam-config -a \
 
 
 ##############
-tar -xvpPf /tmp/tar_iso_suse11v118412.tar
+tar -xvpPf /tmp/Hardening/tar_iso_suse11_20180416.tar
 chmod 644 /etc/cron.allow /etc/issue /etc/issue.net /etc/login.defs
 chmod 644 /etc/profile.local /etc/profile /etc/services
 chmod 644 /etc/pam.d/common-auth-pc
@@ -66,7 +66,8 @@ chmod 600 /etc/syslog-ng/syslog-ng.conf
 chmod 660 /etc/sudoers
 
 service sshd restart
-service  syslog restart
+service syslog restart
+service auditd restart
 
 # chkconfig list-unit-files
 chkconfig --del autofs 
