@@ -46,6 +46,7 @@ pam-config -a \
     --cracklib-dcredit=-1 \
     --cracklib-ucredit=-1 \
     --cracklib-lcredit=-1 \
+    --cracklib-ocredit=-1 \
     --cracklib-minlen=8 \
     --cracklib-retry=5 \
     --cracklib \
